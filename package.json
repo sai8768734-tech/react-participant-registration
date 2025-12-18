@@ -1,0 +1,28 @@
+{
+  "name": "training-program-registration",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Training Program Registration System with real-time dashboard",
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npm install",
+    "install:all": "cd client && npm install && cd ../server && npm install",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sai8768734-tech/react-participant-registration.git"
+  },
+  "keywords": [
+    "react",
+    "vite",
+    "training",
+    "registration",
+    "websocket"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+

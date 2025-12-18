@@ -77,6 +77,36 @@ Frontend runs on `http://localhost:5173`
 
 - `new_participant` - Emitted when a new participant registers
 
+## Deployment
+
+### Frontend Deployment (Static Hosting)
+
+The frontend can be deployed to any static hosting service (Cloudflare Pages, Netlify, Vercel, etc.).
+
+**Build Command:**
+```bash
+cd client && npm install && npm run build
+```
+
+**Output Directory:** `client/dist`
+
+**Environment Variables:**
+Set `VITE_API_URL` to your deployed backend URL (e.g., `https://your-backend.herokuapp.com`)
+
+**Configuration Files:**
+- `netlify.toml` - For Netlify deployment
+- `vercel.json` - For Vercel deployment
+- Root `package.json` - Contains build scripts for various platforms
+
+### Backend Deployment
+
+The backend needs a Node.js hosting service (Heroku, Railway, Render, etc.).
+
+**Important:** Update the CORS settings in `server/server.js` to include your frontend URL.
+
+**Environment Variables:**
+- `PORT` - Server port (default: 4000)
+
 ## License
 
 MIT
