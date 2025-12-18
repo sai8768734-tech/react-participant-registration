@@ -13,18 +13,38 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const server = http.createServer(app);
 
-// Configure Socket.IO with CORS for dev client
+// Configure CORS origins from environment variable or default to localhost
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",").map((origin) => origin.trim())
+  : ["http://localhost:5173", "http://127.0.0.1:5173"];
+
+// Configure Socket.IO with CORS
 const io = new SocketIOServer(server, {
   cors: {
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
-    methods: ["GET", "POST"]
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
 const PORT = process.env.PORT || 4000;
 const DATA_FILE = path.join(__dirname, "participants.json");
 
-app.use(cors());
+// Configure Express CORS
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true
+  })
+);
 app.use(express.json());
 
 // Ensure data file exists
@@ -191,10 +211,11 @@ io.on("connection", (socket) => {
   });
 });
 
-// Start server
-server.listen(PORT, () => {
+// Start server - listen on 0.0.0.0 for Render deployment
+server.listen(PORT, "0.0.0.0", () => {
   initDataFile();
-  console.log(`Server listening on http://localhost:${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
+  console.log(`Allowed origins: ${allowedOrigins.join(", ")}`);
 });
 
 

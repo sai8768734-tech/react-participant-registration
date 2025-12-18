@@ -62,10 +62,12 @@ You can also set up a custom domain if you have one.
 
 ### Backend Deployment Required
 ⚠️ **The backend (Node.js server) must be deployed separately** on a Node.js hosting service:
-- **Railway** (recommended): https://railway.app
-- **Render**: https://render.com
+- **Render** (recommended): See [RENDER_DEPLOYMENT.md](./RENDER_DEPLOYMENT.md) for detailed instructions
+- **Railway**: https://railway.app
 - **Heroku**: https://heroku.com
 - **Fly.io**: https://fly.io
+
+**For Render deployment:** Follow the step-by-step guide in `RENDER_DEPLOYMENT.md`
 
 After deploying the backend, update the `VITE_API_URL` environment variable in Cloudflare Pages to point to your backend URL.
 

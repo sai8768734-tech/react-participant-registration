@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: training-registration-backend
+    env: node
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # Update this with your Cloudflare Pages URL after deployment
+      - key: ALLOWED_ORIGINS
+        value: http://localhost:5173,https://your-app.pages.dev
+        # Example: https://react-participant-registration.pages.dev
+
